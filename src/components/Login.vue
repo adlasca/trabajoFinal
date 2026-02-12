@@ -47,8 +47,13 @@ export default {
             this.error = '';
 
             try {
-                localStorage.setItem('token', await loginFacade(this.usuario, this.contrasena));
-                this.$router.push('/listar'); // Redirect to list view after successful login
+                const token = await loginFacade(this.usuario, this.contrasena);
+                if (token) {
+                    localStorage.setItem('token', token);
+                    this.$router.push('/listarEstudiantes');
+                } else {
+                    this.error = 'Error al iniciar sesión';
+                }
             } catch (err) {
                 this.error = err.message || 'Error al iniciar sesión';
             } finally {

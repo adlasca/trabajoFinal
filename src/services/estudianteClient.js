@@ -1,10 +1,8 @@
 import axios from "axios";
 
 
-const objeto = ""
 const URL = "http://localhost:8081/matricula/api/v1.0/estudiantes";
 const TOKEN = localStorage.getItem("token");
-
 
 const consultarTodos = async () => {
   const data = axios

@@ -10,6 +10,14 @@ const routes = [
     }
   },
   {
+    path: '/listarEstudiantes',
+    name: 'listarEstudiantes',
+    component: () => import('../views/ListarEstudiantes.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
     path: '/login',
     name: 'login',
     component: () => import('../views/LoginView.vue')
@@ -27,9 +35,9 @@ const routes = [
     }
   },
   {
-    path: '/modificar/:id',
-    name: 'modificar',
-    component: () => import('../views/ModificarView.vue'),
+    path: '/modificarEstudiantes/:id',
+    name: 'modificarEstudiantes',
+    component: () => import('../views/ModificarEstudiantes.vue'),
     meta: {
       requiresAuth: true
     }
@@ -42,21 +50,14 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiereAutorizacion) {
-    /*Le envio a una pagina de login */
-
-    const estaAutenticado = localStorage.getItem("estaAutenticado");
+  if (to.meta.requiresAuth) {
     const token = localStorage.getItem("token");
-    if (!estaAutenticado) {
-      console.log("redirige a login")
+    if (!token) {
       next({ name: "login" })
     } else {
-      console.log("sin validaciones")
       next();
     }
   } else {
-    /*Le dejo sin validaciones*/
-    console.log("sin validaciones")
     next()
   }
 });

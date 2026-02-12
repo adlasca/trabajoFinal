@@ -2,9 +2,9 @@
 import { RouterLink, RouterView, useRouter } from 'vue-router'
 
 const router = useRouter()
-const isAuthenticated = false
 
 const logout = () => {
+  localStorage.removeItem("token");
   router.push('/login')
 }
 </script>
@@ -14,12 +14,12 @@ const logout = () => {
     <div class="wrapper">
       <nav>
         <div class="nav-links">
-          <RouterLink to="/listar">Estudiantes</RouterLink>
+          <RouterLink to="/listarEstudiantes">Estudiantes</RouterLink>
           <RouterLink to="/crear">Materias</RouterLink>
           <RouterLink to="/crear">Matriculas</RouterLink>
         </div>
         <div class="nav-auth">
-          <a v-if="isAuthenticated" @click="logout" class="logout-btn">Salir</a>
+          <a @click="logout" class="logout-btn">Salir</a>
         </div>
       </nav>
     </div>
